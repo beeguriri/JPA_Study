@@ -1,0 +1,32 @@
+package wendy.study.jpashop.Model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import wendy.study.jpashop.Model.common.RoleType;
+
+import java.time.LocalDateTime;
+
+@Data
+@Entity
+public class Member {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
+    private Long id;
+
+    @Column(nullable = false, length = 10)
+    private String name;
+
+    private String city;
+    private String street;
+    private String zipcode;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime modifiedDate;
+}
