@@ -2,7 +2,6 @@ package wendy.study.jpashop.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import wendy.study.jpashop.Model.common.OrderStatus;
 
 import java.time.LocalDateTime;
 
@@ -15,9 +14,11 @@ public class OrderItem {
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID") //order(1) : orderItem(n)
     private Order order;
 
-    private Item item;
+//    private Item item;
 
     private int orderPrice;
     private int count;
