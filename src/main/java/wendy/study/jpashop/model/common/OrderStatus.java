@@ -1,4 +1,4 @@
-package wendy.study.jpashop.Model.common;
+package wendy.study.jpashop.model.common;
 
 public enum OrderStatus {
     ORDER, CANCEL

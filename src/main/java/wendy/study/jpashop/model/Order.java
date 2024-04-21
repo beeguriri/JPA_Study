@@ -1,8 +1,8 @@
-package wendy.study.jpashop.Model;
+package wendy.study.jpashop.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import wendy.study.jpashop.Model.common.OrderStatus;
+import wendy.study.jpashop.model.common.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

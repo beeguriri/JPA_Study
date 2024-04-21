@@ -1,4 +1,4 @@
-package wendy.study.jpashop.Model;
+package wendy.study.jpashop.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
