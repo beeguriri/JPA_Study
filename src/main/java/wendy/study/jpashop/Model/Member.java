@@ -5,6 +5,8 @@ import lombok.Data;
 import wendy.study.jpashop.Model.common.RoleType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,9 +26,13 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
+    @OneToMany(mappedBy = "member") //member(1) : order(n)
+    private List<Order> orders = new ArrayList<>();
+
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedDate;
+
 }
