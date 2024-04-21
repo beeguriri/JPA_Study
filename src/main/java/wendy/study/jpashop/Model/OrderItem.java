@@ -18,7 +18,12 @@ public class OrderItem {
     @JoinColumn(name = "ORDER_ID") //order(1) : orderItem(n)
     private Order order;
 
-//    private Item item;
+    @ManyToOne
+    @JoinColumn(name = "ITEM_ID")
+    //OrderItem(n) : Item(1)
+    //orderItem -> Item을 조회하지만
+    //Item -> OrderItem 조회할 일은 거의 없을 것 같아서 단방향으로 설정
+    private Item item;
 
     private int orderPrice;
     private int count;
