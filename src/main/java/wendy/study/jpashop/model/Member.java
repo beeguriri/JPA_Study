@@ -18,9 +18,8 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 10)
     private String name;
 
-    private String city;
-    private String street;
-    private String zipcode;
+    @Embedded
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
