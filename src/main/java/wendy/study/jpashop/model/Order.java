@@ -23,6 +23,12 @@ public class Order {
     @OneToMany(mappedBy = "order") //order(1) : orderItem(n)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @OneToOne //order(1) : delivery(1) 주인이 order
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
+    private LocalDateTime orderDate;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
@@ -46,5 +52,11 @@ public class Order {
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
+    }
+
+    //양방향 연관관계 메서드 (Order <-> Delivery)
+    public void setDelivery (Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
     }
 }
