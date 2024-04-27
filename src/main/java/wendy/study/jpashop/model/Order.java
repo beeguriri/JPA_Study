@@ -20,10 +20,10 @@ public class Order extends BaseEntity{
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "order") //order(1) : orderItem(n)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //order(1) : orderItem(n)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY) //order(1) : delivery(1) 주인이 order
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //order(1) : delivery(1) 주인이 order
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 

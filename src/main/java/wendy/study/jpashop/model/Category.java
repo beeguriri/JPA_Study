@@ -17,7 +17,7 @@ public class Category extends BaseEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
     //양방향 연관관계 메서드

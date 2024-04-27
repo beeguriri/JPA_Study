@@ -20,7 +20,7 @@ public abstract class Item extends BaseEntity{
     private int price;
     private int stockQuantity;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
     //양방향 연관관계 메서드
