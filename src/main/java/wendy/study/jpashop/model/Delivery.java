@@ -4,11 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import wendy.study.jpashop.model.type.DeliveryStatus;
 
-import java.time.LocalDateTime;
-
 @Data
 @Entity
-public class Delivery {
+public class Delivery extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +22,5 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime modifiedDate;
 
 }

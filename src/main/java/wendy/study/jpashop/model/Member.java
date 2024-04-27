@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 import wendy.study.jpashop.model.type.RoleType;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
@@ -28,11 +27,5 @@ public class Member {
 
     @OneToMany(mappedBy = "member") //member(1) : order(n)
     private List<Order> orders = new ArrayList<>();
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime modifiedDate;
 
 }

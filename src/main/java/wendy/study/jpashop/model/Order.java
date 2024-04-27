@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "ORDERS")
-public class Order {
+public class Order extends BaseEntity{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ID")
     private Long id;
@@ -31,12 +31,6 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime modifiedDate;
 
     //양방향 연관관계 메서드 (Member <-> Order)
     public void setMember(Member member) {

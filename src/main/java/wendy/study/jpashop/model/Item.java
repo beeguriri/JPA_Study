@@ -3,7 +3,6 @@ package wendy.study.jpashop.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn //defualt : DTYPE
-public abstract class Item {
+public abstract class Item extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITEM_ID")
@@ -23,12 +22,6 @@ public abstract class Item {
 
     @OneToMany(mappedBy = "item")
     private List<CategoryItem> categoryItems = new ArrayList<>();
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime modifiedDate;
 
     //양방향 연관관계 메서드
     public void addCategoryItem (CategoryItem categoryItem) {

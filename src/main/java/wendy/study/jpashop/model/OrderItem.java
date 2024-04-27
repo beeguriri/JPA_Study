@@ -3,12 +3,10 @@ package wendy.study.jpashop.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 @Entity
 @Table(name = "ORDER_ITEM")
-public class OrderItem {
+public class OrderItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ITEM_ID")
@@ -28,9 +26,4 @@ public class OrderItem {
     private int orderPrice;
     private int count;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime modifiedDate;
 }
