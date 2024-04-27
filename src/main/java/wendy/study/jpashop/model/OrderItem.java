@@ -2,10 +2,12 @@ package wendy.study.jpashop.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "ORDER_ITEM")
+@EqualsAndHashCode(callSuper = true)
 public class OrderItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,10 +2,12 @@ package wendy.study.jpashop.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import wendy.study.jpashop.model.type.DeliveryStatus;
 
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = true)
 public class Delivery extends BaseEntity{
 
     @Id
