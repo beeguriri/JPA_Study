@@ -32,4 +32,33 @@ public class Category {
         categoryItem.setCategory(this);
         categoryItems.add(categoryItem);
     }
+
+
+    /**
+     * 다대다 매핑
+     */
+//    @ManyToMany
+//    @JoinTable(name = "CATEGORY_ITEM",
+//                joinColumns = @JoinColumn(name = "CATEGORY_ID"),
+//                inverseJoinColumns = @JoinColumn(name = "ITEM_ID"))
+//    private List<Item> items = new ArrayList<>();
+//
+//    //계층구조 만들기
+//    @ManyToOne
+//    @JoinColumn(name = "PARENT_ID")
+//    private  Category parent;
+//
+//    @OneToMany(mappedBy = "parent")
+//    private List<Category> child = new ArrayList<>();
+//
+//    //연관관계 메서드
+//    public void addChildCategory(Category child) {
+//        this.child.add(child);
+//        child.setParent(this);
+//    }
+//
+//    public void addItem(Item item) {
+//        items.add(item);
+//    }
+
 }

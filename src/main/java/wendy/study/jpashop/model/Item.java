@@ -33,4 +33,10 @@ public class Item {
         categoryItem.setItem(this);
         categoryItems.add(categoryItem);
     }
+
+    /**
+     * 다대다 매핑
+     */
+//    @ManyToMany(mappedBy = "items")
+//    private List<Category> categories = new ArrayList<>();
 }
