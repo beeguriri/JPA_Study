@@ -2,7 +2,7 @@ package wendy.study.jpashop.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import wendy.study.jpashop.model.common.RoleType;
+import wendy.study.jpashop.model.type.RoleType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
