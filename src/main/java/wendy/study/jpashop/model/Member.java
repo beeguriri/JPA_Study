@@ -1,8 +1,7 @@
 package wendy.study.jpashop.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import wendy.study.jpashop.model.type.RoleType;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +29,10 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member") //member(1) : order(n)
     private List<Order> orders = new ArrayList<>();
 
+    @Builder
+    public Member (String name, Address address, RoleType roleType) {
+        this.name = name;
+        this.address = address;
+        this.roleType = roleType;
+    }
 }

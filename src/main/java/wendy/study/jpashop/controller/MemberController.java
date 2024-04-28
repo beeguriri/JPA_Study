@@ -3,6 +3,7 @@ package wendy.study.jpashop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import wendy.study.jpashop.model.Member;
+import wendy.study.jpashop.params.MemberJoinParam;
 import wendy.study.jpashop.service.MemberService;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public Long join(@RequestBody Member member){
-        return memberService.join(member);
+    public Long join(@RequestBody MemberJoinParam params){
+        return memberService.join(params.toEntity());
     }
 }
