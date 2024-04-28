@@ -6,8 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import wendy.study.jpashop.model.Item;
+import wendy.study.jpashop.params.UpdateItemParams;
 
+@Slf4j
 @Data
 @Entity
 @DiscriminatorValue("BOOK")
@@ -25,5 +28,14 @@ public class Book extends Item {
         this.setStockQuantity(stockQuantity);
         this.author = author;
         this.isbn = isbn;
+    }
+
+    //아이템 수정 메서드
+    public void updateBook(UpdateItemParams params) {
+        this.setName(params.getName() == null ? this.getName() : params.getName());
+        this.setPrice(params.getPrice());
+        this.setStockQuantity(params.getStockQuantity());
+        this.author = params.getAuthor() == null ? author : params.getAuthor();
+        this.isbn = params.getIsbn() == null ? isbn : params.getIsbn();
     }
 }

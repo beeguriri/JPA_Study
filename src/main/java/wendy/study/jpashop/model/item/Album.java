@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import wendy.study.jpashop.model.Item;
+import wendy.study.jpashop.params.UpdateItemParams;
 
 @Data
 @Entity
@@ -25,5 +26,14 @@ public class Album extends Item {
         this.setStockQuantity(stockQuantity);
         this.artist = artist;
         this.etc = etc;
+    }
+
+    //아이템 수정 메서드
+    public void updateAlbum(UpdateItemParams params) {
+        this.setName(params.getName() == null ? this.getName() : params.getName());
+        this.setPrice(params.getPrice());
+        this.setStockQuantity(params.getStockQuantity());
+        this.artist = params.getArtist() == null ? artist : params.getArtist();
+        this.etc = params.getEtc() == null ? etc : params.getEtc();
     }
 }

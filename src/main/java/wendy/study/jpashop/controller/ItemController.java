@@ -7,6 +7,7 @@ import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.params.AlbumParams;
 import wendy.study.jpashop.params.BookParams;
 import wendy.study.jpashop.params.MovieParams;
+import wendy.study.jpashop.params.UpdateItemParams;
 import wendy.study.jpashop.service.ItemService;
 
 import java.util.List;
@@ -47,6 +48,12 @@ public class ItemController {
     @DeleteMapping("/{itemId}")
     public void deleteItem(@PathVariable("itemId") Long itemId) {
         itemService.deleteItem(itemId);
+    }
+
+    @PutMapping("/{itemId}/edit")
+    public void updateItem(@PathVariable("itemId") Long itemId,
+                                        @RequestBody UpdateItemParams updateItemParams) {
+        itemService.updateItem(itemId, updateItemParams);
     }
 
 }
