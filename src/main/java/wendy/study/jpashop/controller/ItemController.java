@@ -44,4 +44,9 @@ public class ItemController {
         return itemService.insertItem(params.toEntity());
     }
 
+    @DeleteMapping("/{itemId}")
+    public void deleteItem(@PathVariable("itemId") Long itemId) {
+        itemService.deleteItem(itemId);
+    }
+
 }

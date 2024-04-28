@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import wendy.study.jpashop.exception.NotEnoughStockException;
+import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.model.item.Album;
 import wendy.study.jpashop.model.item.Book;
 import wendy.study.jpashop.model.item.Movie;
@@ -89,6 +91,49 @@ class ItemServiceTest {
         //then
         assertThrows(IllegalStateException.class, () -> {
             itemService.findItem(id);
+        });
+    }
+
+    @Test
+    void addStock() {
+
+        //given
+        Item item = itemService.findItem(1L);
+        int now = item.getStockQuantity();
+
+        //when
+        item.addStock(100);
+
+        //then
+        assertEquals(now+100, item.getStockQuantity());
+
+    }
+
+    @Test
+    void removeStock() {
+
+        //given
+        Item item = itemService.findItem(1L);
+        int now = item.getStockQuantity();
+
+        //when
+        item.removeStock(50);
+
+        //then
+        assertEquals(now-50, item.getStockQuantity());
+
+    }
+
+    @Test
+    void removeStockException() {
+
+        //given
+        Item item = itemService.findItem(1L);
+
+        //when
+        //then
+        assertThrows(NotEnoughStockException.class, () -> {
+            item.removeStock(101);
         });
     }
 }

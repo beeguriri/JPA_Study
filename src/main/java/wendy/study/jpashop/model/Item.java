@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import wendy.study.jpashop.exception.NotEnoughStockException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,19 @@ public abstract class Item extends BaseEntity{
     public void addCategoryItem (CategoryItem categoryItem) {
         categoryItem.setItem(this);
         categoryItems.add(categoryItem);
+    }
+
+    //비즈니스 로직
+    public void addStock (int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStock (int quantity) {
+
+        int result = this.stockQuantity - quantity;
+        if(result < 0) throw new NotEnoughStockException("재고 수량이 부족 합니다.");
+
+        this.stockQuantity = result;
     }
 
     /**
