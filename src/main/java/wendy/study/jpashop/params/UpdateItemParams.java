@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class UpdateItemParams {
     private String name;
-    private int price;
-    private int stockQuantity;
+    private Integer price;
+    private Integer stockQuantity;
     //album
     private String artist;
     private String etc;

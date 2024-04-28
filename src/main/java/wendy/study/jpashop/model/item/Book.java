@@ -32,9 +32,7 @@ public class Book extends Item {
 
     //아이템 수정 메서드
     public void updateBook(UpdateItemParams params) {
-        this.setName(params.getName() == null ? this.getName() : params.getName());
-        this.setPrice(params.getPrice());
-        this.setStockQuantity(params.getStockQuantity());
+        this.updateItem(params);
         this.author = params.getAuthor() == null ? author : params.getAuthor();
         this.isbn = params.getIsbn() == null ? isbn : params.getIsbn();
     }

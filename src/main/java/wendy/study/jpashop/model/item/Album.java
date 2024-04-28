@@ -30,9 +30,7 @@ public class Album extends Item {
 
     //아이템 수정 메서드
     public void updateAlbum(UpdateItemParams params) {
-        this.setName(params.getName() == null ? this.getName() : params.getName());
-        this.setPrice(params.getPrice());
-        this.setStockQuantity(params.getStockQuantity());
+        this.updateItem(params);
         this.artist = params.getArtist() == null ? artist : params.getArtist();
         this.etc = params.getEtc() == null ? etc : params.getEtc();
     }
