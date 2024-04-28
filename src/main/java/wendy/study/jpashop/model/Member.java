@@ -1,8 +1,13 @@
 package wendy.study.jpashop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import wendy.study.jpashop.model.type.RoleType;
+import wendy.study.jpashop.params.UpdateMemberParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,7 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member") //member(1) : order(n)
     private List<Order> orders = new ArrayList<>();
 
@@ -34,5 +40,10 @@ public class Member extends BaseEntity {
         this.name = name;
         this.address = address;
         this.roleType = roleType;
+    }
+
+    public void updateMember(UpdateMemberParams params) {
+        this.name = params.getName() == null ? name : params.getName();
+        this.address = params.getAddress() == null ? address : params.getAddress();
     }
 }

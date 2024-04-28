@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import wendy.study.jpashop.model.Member;
 import wendy.study.jpashop.params.MemberJoinParam;
+import wendy.study.jpashop.params.UpdateMemberParams;
 import wendy.study.jpashop.service.MemberService;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class MemberController {
         return memberService.findMember(memberId);
     }
 
-    @GetMapping("/{name}")
-    public Member findMemberByName(@PathVariable("name") String name) {
+    @GetMapping("/")
+    public Member findMemberByName(@RequestParam("name") String name) {
         return memberService.findMemberByName(name);
     }
 
@@ -33,5 +34,11 @@ public class MemberController {
     @PostMapping("/join")
     public Long join(@RequestBody MemberJoinParam params){
         return memberService.join(params.toEntity());
+    }
+
+    @PutMapping("/{memberId}/edit")
+    public void edit(@PathVariable("memberId") Long memberId,
+                     @RequestBody UpdateMemberParams params) {
+        memberService.updateMember(memberId, params);
     }
 }
