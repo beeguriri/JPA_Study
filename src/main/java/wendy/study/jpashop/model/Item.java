@@ -3,6 +3,7 @@ package wendy.study.jpashop.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn //defualt : DTYPE
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public abstract class Item extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
