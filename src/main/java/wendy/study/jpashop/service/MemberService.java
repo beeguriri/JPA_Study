@@ -21,19 +21,25 @@ public class MemberService {
 
         //중복 회원 검증
         validateMember(member);
-
-        Member save = memberRepository.save(member);
-        return save.getId();
+        memberRepository.save(member);
+        return member.getId();
     }
 
-    //회원 한명 조회
+    //seq로 회원 한명 조회
     public Member findMember(Long memberId) {
         return memberRepository
                 .findById(memberId)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
     }
 
-    //회원 목록 조회
+    //username으로 회원 한명 조회
+    public Member findMemberByName(String name) {
+        return memberRepository
+                .findByName(name)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
+    }
+
+    //회원 전체 조회
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }

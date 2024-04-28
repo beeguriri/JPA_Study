@@ -19,6 +19,11 @@ public class MemberController {
         return memberService.findMember(memberId);
     }
 
+    @GetMapping("/{name}")
+    public Member findMemberByName(@PathVariable("name") String name) {
+        return memberService.findMemberByName(name);
+    }
+
     @GetMapping("/all")
     public List<Member> findMembers(){
         return memberService.findMembers();
