@@ -3,11 +3,13 @@ package wendy.study.jpashop.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import wendy.study.jpashop.model.type.DeliveryStatus;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@ToString(exclude = {"order"}, callSuper = true)
 public class Delivery extends BaseEntity{
 
     @Id

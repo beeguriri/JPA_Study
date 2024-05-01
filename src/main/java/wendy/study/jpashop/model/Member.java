@@ -2,10 +2,7 @@ package wendy.study.jpashop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import wendy.study.jpashop.model.type.RoleType;
 import wendy.study.jpashop.params.UpdateMemberParams;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
+@ToString(exclude = {"orders"}, callSuper = true)
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
