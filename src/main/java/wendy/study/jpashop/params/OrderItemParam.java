@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemParams {
+public class OrderItemParam {
     private Long itemId;
     private int count;
 }

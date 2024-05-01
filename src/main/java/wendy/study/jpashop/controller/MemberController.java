@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import wendy.study.jpashop.model.Member;
 import wendy.study.jpashop.params.MemberJoinParam;
-import wendy.study.jpashop.params.UpdateMemberParams;
+import wendy.study.jpashop.params.UpdateMemberParam;
 import wendy.study.jpashop.service.MemberService;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class MemberController {
 
     @PutMapping("/{memberId}/edit")
     public void edit(@PathVariable("memberId") Long memberId,
-                     @RequestBody UpdateMemberParams params) {
+                     @RequestBody UpdateMemberParam params) {
         memberService.updateMember(memberId, params);
     }
 }

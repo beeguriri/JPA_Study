@@ -4,7 +4,7 @@ import lombok.Data;
 import wendy.study.jpashop.model.item.Book;
 
 @Data
-public class BookParams {
+public class BookParam {
     private String name;
     private int price;
     private int stockQuantity;

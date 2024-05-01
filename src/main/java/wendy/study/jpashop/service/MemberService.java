@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wendy.study.jpashop.model.Member;
-import wendy.study.jpashop.params.UpdateMemberParams;
+import wendy.study.jpashop.params.UpdateMemberParam;
 import wendy.study.jpashop.repository.MemberRepository;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class MemberService {
 
     //회원 수정
     @Transactional
-    public void updateMember(Long id, UpdateMemberParams params) {
+    public void updateMember(Long id, UpdateMemberParam params) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
         member.updateMember(params);
     }

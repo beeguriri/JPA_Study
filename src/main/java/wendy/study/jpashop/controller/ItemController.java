@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import wendy.study.jpashop.model.Item;
-import wendy.study.jpashop.params.AlbumParams;
-import wendy.study.jpashop.params.BookParams;
-import wendy.study.jpashop.params.MovieParams;
-import wendy.study.jpashop.params.UpdateItemParams;
+import wendy.study.jpashop.params.AlbumParam;
+import wendy.study.jpashop.params.BookParam;
+import wendy.study.jpashop.params.MovieParam;
+import wendy.study.jpashop.params.UpdateItemParam;
 import wendy.study.jpashop.service.ItemService;
 
 import java.util.List;
@@ -31,17 +31,17 @@ public class ItemController {
     }
 
     @PostMapping("/insert/album")
-    public Long insertItem(@RequestBody AlbumParams params) {
+    public Long insertItem(@RequestBody AlbumParam params) {
         return itemService.insertItem(params.toEntity());
     }
 
     @PostMapping("/insert/book")
-    public Long insertItem(@RequestBody BookParams params) {
+    public Long insertItem(@RequestBody BookParam params) {
         return itemService.insertItem(params.toEntity());
     }
 
     @PostMapping("/insert/movie")
-    public Long insertItem(@RequestBody MovieParams params) {
+    public Long insertItem(@RequestBody MovieParam params) {
         return itemService.insertItem(params.toEntity());
     }
 
@@ -52,8 +52,8 @@ public class ItemController {
 
     @PutMapping("/{itemId}/edit")
     public void updateItem(@PathVariable("itemId") Long itemId,
-                                        @RequestBody UpdateItemParams updateItemParams) {
-        itemService.updateItem(itemId, updateItemParams);
+                                        @RequestBody UpdateItemParam updateItemParam) {
+        itemService.updateItem(itemId, updateItemParam);
     }
 
 }

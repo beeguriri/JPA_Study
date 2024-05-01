@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import wendy.study.jpashop.exception.NotEnoughStockException;
-import wendy.study.jpashop.params.UpdateItemParams;
+import wendy.study.jpashop.params.UpdateItemParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public abstract class Item extends BaseEntity{
     }
 
     //변경감지 수정메서드
-    public void updateItem(UpdateItemParams params) {
+    public void updateItem(UpdateItemParam params) {
         this.name = params.getName() == null ? name : params.getName();
         this.price = params.getPrice() == null ? this.getPrice() : params.getPrice();
         this.stockQuantity = params.getStockQuantity() == null ? this.getStockQuantity() : params.getStockQuantity();

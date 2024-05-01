@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import wendy.study.jpashop.model.Item;
-import wendy.study.jpashop.params.UpdateItemParams;
+import wendy.study.jpashop.params.UpdateItemParam;
 
 @Data
 @Entity
@@ -29,7 +29,7 @@ public class Movie extends Item {
     }
 
     //아이템 수정 메서드
-    public void updateMovie (UpdateItemParams params) {
+    public void updateMovie (UpdateItemParam params) {
         this.updateItem(params);
         this.director = params.getDirector() == null ? director : params.getDirector();
         this.actor = params.getActor() == null ? actor : params.getActor();

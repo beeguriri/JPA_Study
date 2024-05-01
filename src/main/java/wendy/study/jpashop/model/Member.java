@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import wendy.study.jpashop.model.type.RoleType;
-import wendy.study.jpashop.params.UpdateMemberParams;
+import wendy.study.jpashop.params.UpdateMemberParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Member extends BaseEntity {
         this.roleType = roleType;
     }
 
-    public void updateMember(UpdateMemberParams params) {
+    public void updateMember(UpdateMemberParam params) {
         this.name = params.getName() == null ? name : params.getName();
         this.address = params.getAddress() == null ? address : params.getAddress();
     }

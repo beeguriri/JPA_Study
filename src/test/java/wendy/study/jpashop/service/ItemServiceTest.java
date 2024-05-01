@@ -9,9 +9,9 @@ import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.model.item.Album;
 import wendy.study.jpashop.model.item.Book;
 import wendy.study.jpashop.model.item.Movie;
-import wendy.study.jpashop.params.AlbumParams;
-import wendy.study.jpashop.params.BookParams;
-import wendy.study.jpashop.params.MovieParams;
+import wendy.study.jpashop.params.AlbumParam;
+import wendy.study.jpashop.params.BookParam;
+import wendy.study.jpashop.params.MovieParam;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +26,7 @@ class ItemServiceTest {
 //    @Rollback(false)
     void insertItem() {
         //given
-        BookParams params = new BookParams();
+        BookParam params = new BookParam();
         params.setName("book1");
         params.setPrice(10000);
         params.setStockQuantity(100);
@@ -46,7 +46,7 @@ class ItemServiceTest {
 //    @Rollback(false)
     void insertItem2() {
         //given
-        MovieParams params = new MovieParams();
+        MovieParam params = new MovieParam();
         params.setName("movie1");
         params.setPrice(15000);
         params.setStockQuantity(5);
@@ -66,7 +66,7 @@ class ItemServiceTest {
 //    @Rollback(false)
     void insertItem3() {
         //given
-        AlbumParams params = new AlbumParams();
+        AlbumParam params = new AlbumParam();
         params.setName("album");
         params.setPrice(7500);
         params.setStockQuantity(10000);

@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import wendy.study.jpashop.model.Item;
-import wendy.study.jpashop.params.UpdateItemParams;
+import wendy.study.jpashop.params.UpdateItemParam;
 
 @Slf4j
 @Data
@@ -31,7 +31,7 @@ public class Book extends Item {
     }
 
     //아이템 수정 메서드
-    public void updateBook(UpdateItemParams params) {
+    public void updateBook(UpdateItemParam params) {
         this.updateItem(params);
         this.author = params.getAuthor() == null ? author : params.getAuthor();
         this.isbn = params.getIsbn() == null ? isbn : params.getIsbn();

@@ -2,7 +2,7 @@ package wendy.study.jpashop.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import wendy.study.jpashop.params.OrderItemParams;
+import wendy.study.jpashop.params.OrderItemParam;
 import wendy.study.jpashop.service.OrderService;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class OrderController {
 
     @PostMapping("/createOrder")
     public Long createOrder(@RequestParam Long memberId,
-                            @RequestBody List<OrderItemParams> params) {
+                            @RequestBody List<OrderItemParam> params) {
         return orderService.createOrder(memberId, params);
     }
 

@@ -10,7 +10,7 @@ import wendy.study.jpashop.model.Order;
 import wendy.study.jpashop.model.OrderItem;
 import wendy.study.jpashop.model.type.DeliveryStatus;
 import wendy.study.jpashop.model.type.OrderStatus;
-import wendy.study.jpashop.params.OrderItemParams;
+import wendy.study.jpashop.params.OrderItemParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ class OrderServiceTest {
     void createOrder() {
         //given
         Long memberId = 1L;
-        OrderItemParams params = new OrderItemParams();
+        OrderItemParam params = new OrderItemParam();
         params.setItemId(2L);
         params.setCount(10);
 
@@ -64,9 +64,9 @@ class OrderServiceTest {
     void createOrder2() {
         //given
         Long memberId = 1L;
-        List<OrderItemParams> params = new ArrayList<>();
-        params.add(new OrderItemParams(2L, 30));
-        params.add(new OrderItemParams(3L, 30));
+        List<OrderItemParam> params = new ArrayList<>();
+        params.add(new OrderItemParam(2L, 30));
+        params.add(new OrderItemParam(3L, 30));
 
         //when
         Long orderId = orderService.createOrder(memberId, params);
@@ -82,7 +82,7 @@ class OrderServiceTest {
 
         //전체 주문 가격 확인
         int totalPrice = 0;
-        for(OrderItemParams param : params) {
+        for(OrderItemParam param : params) {
             totalPrice += itemService.findItem(param.getItemId()).getPrice() * param.getCount();
         }
         assertEquals(totalPrice, order.getTotalPriceOrder());

@@ -4,7 +4,7 @@ import lombok.Data;
 import wendy.study.jpashop.model.Address;
 
 @Data
-public class UpdateMemberParams {
+public class UpdateMemberParam {
     private String name;
     private Address address;
 }

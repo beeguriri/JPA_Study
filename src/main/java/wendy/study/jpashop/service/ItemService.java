@@ -8,7 +8,7 @@ import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.model.item.Album;
 import wendy.study.jpashop.model.item.Book;
 import wendy.study.jpashop.model.item.Movie;
-import wendy.study.jpashop.params.UpdateItemParams;
+import wendy.study.jpashop.params.UpdateItemParam;
 import wendy.study.jpashop.repository.ItemRepository;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class ItemService {
 
     //상품수정
     @Transactional
-    public void updateItem(Long id, UpdateItemParams params) {
+    public void updateItem(Long id, UpdateItemParam params) {
         //우선 아이템을 찾는다
         Item item = itemRepository.findById(id).orElseThrow(() -> new IllegalStateException("찾는 아이템이 없습니다."));
 

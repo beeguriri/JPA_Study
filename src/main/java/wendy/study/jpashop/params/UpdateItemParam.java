@@ -3,7 +3,7 @@ package wendy.study.jpashop.params;
 import lombok.Data;
 
 @Data
-public class UpdateItemParams {
+public class UpdateItemParam {
     private String name;
     private Integer price;
     private Integer stockQuantity;

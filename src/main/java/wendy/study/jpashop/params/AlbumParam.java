@@ -1,23 +1,23 @@
 package wendy.study.jpashop.params;
 
 import lombok.Data;
-import wendy.study.jpashop.model.item.Movie;
+import wendy.study.jpashop.model.item.Album;
 
 @Data
-public class MovieParams {
+public class AlbumParam {
     private String name;
     private int price;
     private int stockQuantity;
-    private String director;
-    private String actor;
+    private String artist;
+    private String etc;
 
-    public Movie toEntity() {
-        return Movie.builder()
+    public Album toEntity() {
+        return Album.builder()
                 .name(name)
                 .price(price)
                 .stockQuantity(stockQuantity)
-                .director(director)
-                .actor(actor)
+                .artist(artist)
+                .etc(etc)
                 .build();
     }
 }

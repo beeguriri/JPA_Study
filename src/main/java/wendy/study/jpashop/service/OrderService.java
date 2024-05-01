@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wendy.study.jpashop.model.*;
 import wendy.study.jpashop.model.type.DeliveryStatus;
-import wendy.study.jpashop.params.OrderItemParams;
+import wendy.study.jpashop.params.OrderItemParam;
 import wendy.study.jpashop.repository.ItemRepository;
 import wendy.study.jpashop.repository.MemberRepository;
 import wendy.study.jpashop.repository.OrderRepository;
@@ -21,7 +21,7 @@ public class OrderService {
     private final ItemRepository itemRepository;
 
     // 주문생성
-    public Long createOrder(Long memberId, List<OrderItemParams> params) {
+    public Long createOrder(Long memberId, List<OrderItemParam> params) {
 
         //엔티티 조회
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
@@ -33,7 +33,7 @@ public class OrderService {
 
         //주문아이템 정보 생성
         List<OrderItem> orderItems = new ArrayList<>();
-        for (OrderItemParams param : params) {
+        for (OrderItemParam param : params) {
             Item item = itemRepository.findById(param.getItemId()).orElseThrow(() -> new IllegalStateException("존재하지 않는 상품입니다."));
             OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), param.getCount());
             orderItems.add(orderItem);
