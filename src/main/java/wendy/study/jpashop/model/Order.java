@@ -1,13 +1,16 @@
 package wendy.study.jpashop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import wendy.study.jpashop.model.type.DeliveryStatus;
 import wendy.study.jpashop.model.type.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Data
 @Entity
@@ -23,6 +26,7 @@ public class Order extends BaseEntity{
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //order(1) : orderItem(n)
+    @JsonIgnore
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //order(1) : delivery(1) 주인이 order
@@ -54,5 +58,32 @@ public class Order extends BaseEntity{
     public void setDelivery (Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    //생성 메서드
+    public static Order createOrder(Member member, Delivery delivery, List<OrderItem> orderItems) {
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        orderItems.forEach(order::addOrderItem);
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+
+        return order;
+    }
+
+    //주문 취소
+    public void cancelOrder() {
+        if(delivery.getDeliveryStatus().equals(DeliveryStatus.COMPLETE))
+            throw new RuntimeException("이미 배송 완료된 상품은 취소가 불가능합니다.");
+
+        this.setOrderStatus(OrderStatus.CANCEL);
+        orderItems.forEach(OrderItem::cancelOrderItem);
+
+    }
+
+    //주문 조회
+    public int getTotalPriceOrder() {
+        return orderItems.stream().flatMapToInt(i -> IntStream.of(i.getTotalPriceOrderItem())).sum();
     }
 }
