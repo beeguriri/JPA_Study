@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import wendy.study.jpashop.model.*;
 import wendy.study.jpashop.model.type.DeliveryStatus;
 import wendy.study.jpashop.params.OrderItemParam;
+import wendy.study.jpashop.params.OrderSearchParam;
 import wendy.study.jpashop.repository.ItemRepository;
 import wendy.study.jpashop.repository.MemberRepository;
 import wendy.study.jpashop.repository.OrderRepository;
@@ -56,13 +57,14 @@ public class OrderService {
     }
 
     // 주문조회
-    public Order getOrder(Long orderId) {
+    public Order findOrderById(Long orderId) {
         return orderRepository.findById(orderId).orElseThrow(() -> new IllegalStateException("존재하지 않는 주문입니다."));
     }
 
-    // 특정 회원으로 조회
-
     // 특정 키워드로 조회
+    public List<Order> findOrderBySearchParam(OrderSearchParam param) {
+        return orderRepository.searchOrder(param);
+    }
 
 
 

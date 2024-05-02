@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import wendy.study.jpashop.model.Item;
+import wendy.study.jpashop.model.Member;
 import wendy.study.jpashop.model.Order;
 import wendy.study.jpashop.model.OrderItem;
 import wendy.study.jpashop.model.type.DeliveryStatus;
 import wendy.study.jpashop.model.type.OrderStatus;
 import wendy.study.jpashop.params.OrderItemParam;
+import wendy.study.jpashop.params.OrderSearchParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ class OrderServiceTest {
 
     @Autowired OrderService orderService;
     @Autowired ItemService itemService;
+    @Autowired MemberService memberService;
 
     @Test
     @DisplayName("정상 주문 - 1건의 주문 아이템")
@@ -42,7 +45,7 @@ class OrderServiceTest {
         Long orderId = orderService.createOrder(memberId, List.of(params));
 
         //then
-        Order order = orderService.getOrder(orderId);
+        Order order = orderService.findOrderById(orderId);
 
         //상품 주문시 상태는 ORDER
         assertEquals(OrderStatus.ORDER, order.getOrderStatus());
@@ -72,7 +75,7 @@ class OrderServiceTest {
         Long orderId = orderService.createOrder(memberId, params);
 
         //then
-        Order order = orderService.getOrder(orderId);
+        Order order = orderService.findOrderById(orderId);
 
         //상품 주문시 상태는 ORDER
         assertEquals(OrderStatus.ORDER, order.getOrderStatus());
@@ -95,7 +98,7 @@ class OrderServiceTest {
 
         //given
         Long orderId = 2L;
-        Order order = orderService.getOrder(orderId);
+        Order order = orderService.findOrderById(orderId);
 
         OrderItem orderItem = order.getOrderItems().get(0);
         int count = orderItem.getCount();
@@ -117,7 +120,43 @@ class OrderServiceTest {
     @Test
     void getItem() {
         Long orderId = 2L;
-        Order order = orderService.getOrder(orderId);
+        Order order = orderService.findOrderById(orderId);
         System.out.println(order);
     }
+
+    @Test
+    @DisplayName("member로 order 조회")
+    void getOrder() {
+        //given
+        Member member = memberService.findMember(1L);
+        String name = member.getName();
+        OrderSearchParam param = new OrderSearchParam();
+        param.setUserName(name);
+
+        //when
+        List<Order> order = orderService.findOrderBySearchParam(param);
+
+        //then
+        //오더 사이즈는 3
+        assertEquals(3, order.size());
+    }
+
+    @Test
+    @DisplayName("member로 order 조회, status == order")
+    void getOrder2() {
+        //given
+        Member member = memberService.findMember(1L);
+        String name = member.getName();
+        OrderSearchParam param = new OrderSearchParam();
+        param.setUserName(name);
+        param.setOrderStatus(OrderStatus.ORDER);
+
+        //when
+        List<Order> order = orderService.findOrderBySearchParam(param);
+
+        //then
+        //오더 사이즈는 2
+        assertEquals(2, order.size());
+    }
+
 }

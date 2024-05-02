@@ -2,7 +2,9 @@ package wendy.study.jpashop.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import wendy.study.jpashop.model.Order;
 import wendy.study.jpashop.params.OrderItemParam;
+import wendy.study.jpashop.params.OrderSearchParam;
 import wendy.study.jpashop.service.OrderService;
 
 import java.util.List;
@@ -23,5 +25,15 @@ public class OrderController {
     @PostMapping("/cancelOrder")
     public void cancelOrder(@RequestParam Long orderId) {
         orderService.cancelOrder(orderId);
+    }
+
+    @GetMapping("/findById")
+    public Order findOrderById(@RequestParam Long orderId) {
+        return orderService.findOrderById(orderId);
+    }
+
+    @GetMapping("/findByParam")
+    public List<Order> findOrderBySearchParam(@RequestBody OrderSearchParam param) {
+        return orderService.findOrderBySearchParam(param);
     }
 }
