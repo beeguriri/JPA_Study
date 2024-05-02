@@ -25,6 +25,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    /*쿼리dsl 추가 시작*/
+    // == 스프링 부트 3.0 이상 ==
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    /*쿼리dsl 추가 끝*/
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
@@ -35,3 +43,19 @@ tasks.named('test') {
     useJUnitPlatform()
     jvmArgs '-Xshare:off' // JVM 아규먼트 설정
 }
+
+/*쿼리dsl 추가 시작*/
+def querydslDir = "src/main/generated"
+
+sourceSets {
+    main.java.srcDirs += [ querydslDir ]
+}
+
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
+}
+
+clean.doLast {
+    file(querydslDir).deleteDir()
+}
+/*쿼리dsl 추가 끝*/
