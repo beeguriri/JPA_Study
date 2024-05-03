@@ -1,4 +1,4 @@
-package wendy.study.jpashop.controller;
+package wendy.study.jpashop.controller.restController;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderRestController {
 
     private final OrderService orderService;
 

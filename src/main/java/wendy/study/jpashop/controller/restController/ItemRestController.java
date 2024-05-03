@@ -1,4 +1,4 @@
-package wendy.study.jpashop.controller;
+package wendy.study.jpashop.controller.restController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/items")
 @RequiredArgsConstructor
-public class ItemController {
+public class ItemRestController {
 
     private final ItemService itemService;
 
