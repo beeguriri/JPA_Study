@@ -3,26 +3,24 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}"
 >
-<body>
-    <div layout:fragment="content" class="mainWrapper">
-        <h1>HELLO SHOP</h1>
-        <div class="contentWrapper">
-            <p class="lead">회원 기능</p>
-            <p class="lead">
-                <a class="btn btn-lg btn-warning" href="v2/members/new">회원 가입</a>
-                <a class="btn btn-lg btn-warning" href="v2/members">회원 목록</a>
-            </p>
-            <p class="lead">상품 기능</p>
-            <p class="lead">
-                <a class="btn btn-lg btn-light" href="v2/items/new">상품 등록</a>
-                <a class="btn btn-lg btn-light" href="v2/items">상품 목록</a>
-            </p>
-            <p class="lead">주문 기능</p>
-            <p class="lead">
-                <a class="btn btn-lg btn-info" href="v2/order">상품 주문</a>
-                <a class="btn btn-lg btn-info" href="v2/orders">주문 내역</a>
-            </p>
-        </div>
-    </div>
-</body>
+<div layout:fragment="content" class="mainWrapper">
+  <h1>HELLO SHOP</h1>
+  <div class="contentWrapper">
+    <p class="lead">회원 기능</p>
+    <p class="lead">
+      <a class="btn btn-lg btn-warning" href="v2/members/new">회원 가입</a>
+      <a class="btn btn-lg btn-warning" href="v2/members">회원 목록</a>
+    </p>
+    <p class="lead">상품 기능</p>
+    <p class="lead">
+      <a class="btn btn-lg btn-light" href="v2/items/new">상품 등록</a>
+      <a class="btn btn-lg btn-light" href="v2/items">상품 목록</a>
+    </p>
+    <p class="lead">주문 기능</p>
+    <p class="lead">
+      <a class="btn btn-lg btn-info" href="v2/order">상품 주문</a>
+      <a class="btn btn-lg btn-info" href="v2/orders">주문 내역</a>
+    </p>
+  </div>
+</div>
 </html>

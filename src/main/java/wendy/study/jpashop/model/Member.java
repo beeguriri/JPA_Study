@@ -20,7 +20,7 @@ public class Member extends BaseEntity {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 10, unique = true)
     private String name;
 
     @Embedded
@@ -43,5 +43,11 @@ public class Member extends BaseEntity {
     public void updateMember(UpdateMemberParam params) {
         this.name = params.getName() == null ? name : params.getName();
         this.address = params.getAddress() == null ? address : params.getAddress();
+    }
+
+    //수정 v2
+    public void updateMember(Member member) {
+        this.name = member.getName() == null ? name : member.getName();
+        this.address = member.getAddress() == null ? address : member.getAddress();
     }
 }

@@ -27,7 +27,8 @@ dependencies {
     //THYMELEAF 추가
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-
+    //validation 추가
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     /*쿼리dsl 추가 시작*/
     // == 스프링 부트 3.0 이상 ==
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'

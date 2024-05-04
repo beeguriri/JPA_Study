@@ -3,9 +3,12 @@ package wendy.study.jpashop.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wendy.study.jpashop.exception.DeleteErrorException;
 import wendy.study.jpashop.model.Member;
+import wendy.study.jpashop.model.Order;
 import wendy.study.jpashop.params.UpdateMemberParam;
 import wendy.study.jpashop.repository.MemberRepository;
+import wendy.study.jpashop.repository.OrderRepository;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final OrderRepository orderRepository;
 
     //회원등록
     @Transactional
@@ -59,5 +63,21 @@ public class MemberService {
     public void updateMember(Long id, UpdateMemberParam params) {
         Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
         member.updateMember(params);
+    }
+
+    //회원 수정 v2
+    @Transactional
+    public void updateMember(Long id, Member member) {
+        Member before = memberRepository.findById(id).orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다."));
+        before.updateMember(member);
+    }
+
+    @Transactional
+    public void deleteMember(Long id) {
+        for (Order order : orderRepository.findAll()) {
+            if(order.getMember().getId().equals(id))
+                throw new DeleteErrorException("주문내역이 존재하여 삭제할 수 없습니다.");
+        }
+        memberRepository.deleteById(id);
     }
 }

@@ -3,29 +3,88 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}"
 >
-<body>
-  <div layout:fragment="content" class="mainWrapper">
-    <h1>회원 목록</h1>
-    <table class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th style="width: 20%">#</th>
-        <th style="width: 20%">이름</th>
-        <th style="width: 20%">도시</th>
-        <th style="width: 20%">주소</th>
-        <th>우편번호</th>
-      </tr>
-      </thead>
-      <tbody class="table-group-divider">
-      <tr th:each="member : ${members}">
-        <td th:text="${member.id}"></td>
-        <td th:text="${member.name}"></td>
-        <td th:text="${member.address?.city}"></td>
-        <td th:text="${member.address?.street}"></td>
-        <td th:text="${member.address?.zipcode}"></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</body>
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    <!-- 토스트 관련 설정 -->
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-center",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    const deleteMember = (memberId) => {
+      Swal.fire({
+        title: '삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const url = "/v2/members/delete/"+memberId;
+          $.ajax({
+            url: url,
+            type: "GET",
+            success: (result, status) => {
+              console.log('result', result)
+              console.log('status', status)
+              if(status === 'success') {
+                Toast.fire({
+                  icon: 'success',
+                  title: '성공!',
+                })
+                setTimeout(() => location.href='/v2/members', 2000);
+              }
+            },
+            error: (jqXHR) => {
+              if (jqXHR.status === 406) {
+                Toast.fire({
+                  icon: 'error',
+                  title: '삭제할 수 없습니다.',
+                })
+              }
+            }
+          });
+        }
+      })
+    }
+  </script>
+</th:block>
+<div layout:fragment="content" class="mainWrapper">
+  <h1>회원 목록</h1>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th style="width: 10%">#</th>
+      <th style="width: 20%">이름</th>
+      <th style="width: 20%">도시</th>
+      <th style="width: 20%">주소</th>
+      <th style="width: 20%">우편번호</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <tr th:each="member : ${members}">
+      <td th:text="${member.id}"></td>
+      <td th:text="${member.name}"></td>
+      <td th:text="${member.address?.city}"></td>
+      <td th:text="${member.address?.street}"></td>
+      <td th:text="${member.address?.zipcode}"></td>
+      <td>
+        <button type="button" class="btn btn-sm btn-light"
+                th:onclick="|location.href='@{'/v2/members/update/'+${member.id}}'|">수정</button>
+        <button type="button" class="btn btn-sm btn-warning"
+                th:member="${member.id}" onclick="deleteMember(this.getAttribute('member'))">삭제</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 </html>
