@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wendy.study.jpashop.dto.ItemDto;
 import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.model.item.Album;
 import wendy.study.jpashop.model.item.Book;
@@ -35,6 +36,11 @@ public class ItemService {
 
     public List<Item> findItems() {
         return itemRepository.findAll();
+    }
+
+    //native query 사용한 itemDto
+    public List<ItemDto> searchAllItems() {
+        return itemRepository.searchAllItems();
     }
 
     //상품삭제
