@@ -7,8 +7,8 @@
 <div layout:fragment="content" class="mainWrapper">
   <form role="form" th:object="${book}" method="post">
     <!-- id 여부에 따라 등록, 수정 구분 -->
-    <p class="h2" th:if="${#strings.isEmpty(book.id)}">상품 등록</p>
-    <p class="h2" th:unless="${#strings.isEmpty(book.id)}">상품 상세</p>
+    <p class="h2" th:if="${#strings.isEmpty(book.id)}">상품[BOOK] 등록</p>
+    <p class="h2" th:unless="${#strings.isEmpty(book.id)}">상품[BOOK] 상세</p>
     <input type="hidden" th:field="*{id}">
 
     <div th:if="${#fields.hasGlobalErrors()}">
@@ -58,6 +58,8 @@
     <div th:if="${#strings.isEmpty(book.id)}" style="text-align: center">
       <button th:formaction="@{/v2/items/new/book}" type="submit"
               class="btn btn-primary">저장</button>
+      <button type="button" class="btn btn-light"
+              th:onclick="|location.href='@{/}'|">취소</button>
     </div>
 
     <div th:unless="${#strings.isEmpty(book.id)}" style="text-align: center">

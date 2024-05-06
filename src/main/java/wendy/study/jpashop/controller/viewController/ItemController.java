@@ -1,12 +1,12 @@
 package wendy.study.jpashop.controller.viewController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import wendy.study.jpashop.dto.AlbumFormDto;
 import wendy.study.jpashop.dto.BookFormDto;
 import wendy.study.jpashop.dto.ItemDto;
@@ -53,5 +53,61 @@ public class ItemController {
             return "items/movieForm";
         }
         return "items/list";
+    }
+
+    @GetMapping("/new")
+    public String addItem() {
+        return "items/itemForm";
+    }
+
+    @GetMapping("/new/album")
+    public String addAlbum(Model model) {
+        model.addAttribute("album", new AlbumFormDto());
+        return "items/albumForm";
+    }
+
+    @PostMapping("/new/album")
+    public String addAlbum(@Valid @ModelAttribute("album") AlbumFormDto form,  BindingResult result) {
+        log.info(form.toString());
+        if (result.hasErrors()) {
+            log.error("error:::{}", result);
+            return "items/albumForm";
+        }
+        itemService.insertItem(form.toEntity());
+        return "redirect:/";
+    }
+
+    @GetMapping("/new/book")
+    public String addBook(Model model) {
+        model.addAttribute("book", new BookFormDto());
+        return "items/bookForm";
+    }
+
+    @PostMapping("/new/book")
+    public String addBook(@Valid @ModelAttribute("book") BookFormDto form,  BindingResult result) {
+        log.info(form.toString());
+        if (result.hasErrors()) {
+            log.error("error:::{}", result);
+            return "items/bookForm";
+        }
+        itemService.insertItem(form.toEntity());
+        return "redirect:/";
+    }
+
+    @GetMapping("/new/movie")
+    public String addMovie(Model model) {
+        model.addAttribute("movie", new MovieFormDto());
+        return "items/movieForm";
+    }
+
+    @PostMapping("/new/movie")
+    public String addMovie(@Valid @ModelAttribute("movie") MovieFormDto form,  BindingResult result) {
+        log.info(form.toString());
+        if (result.hasErrors()) {
+            log.error("error:::{}", result);
+            return "items/movieForm";
+        }
+        itemService.insertItem(form.toEntity());
+        return "redirect:/";
     }
 }
