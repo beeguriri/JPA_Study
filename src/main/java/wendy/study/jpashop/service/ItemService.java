@@ -71,4 +71,23 @@ public class ItemService {
             return;
         }
     }
+
+    //상품 수정 v2
+    @Transactional
+    public void updateItem(Long id, Item item) {
+        Item before = itemRepository.findById(id).orElseThrow(() -> new IllegalStateException("찾는 아이템이 없습니다."));
+        //각 아이템의 인스턴스에 따라 수정
+        if(item instanceof Album) {
+            ((Album) before).updateAlbum((Album) item);
+            return;
+        }
+        if(item instanceof Book) {
+            ((Book) before).updateBook((Book) item);
+            return;
+        }
+        if(item instanceof Movie) {
+            ((Movie) before).updateMovie((Movie) item);
+            return;
+        }
+    }
 }

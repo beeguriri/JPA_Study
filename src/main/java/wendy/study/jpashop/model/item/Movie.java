@@ -34,4 +34,11 @@ public class Movie extends Item {
         this.director = params.getDirector() == null ? director : params.getDirector();
         this.actor = params.getActor() == null ? actor : params.getActor();
     }
+
+    //수정 v2
+    public void updateMovie(Movie movie) {
+        this.updateItem(movie);
+        this.director = movie.getDirector();
+        this.actor = movie.getActor();
+    }
 }

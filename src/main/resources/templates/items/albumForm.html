@@ -55,7 +55,7 @@
     </div>
 
     <div th:unless="${#strings.isEmpty(album.id)}" style="text-align: center">
-      <button th:formaction="@{'/v2/items/update/'+${album.id}}" type="submit"
+      <button th:formaction="@{'/v2/items/update/album/'+${album.id}}" type="submit"
               class="btn btn-primary">수정</button>
       <button type="button" class="btn btn-light"
               th:onclick="|location.href='@{/v2/items}'|">취소</button>

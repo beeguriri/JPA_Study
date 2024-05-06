@@ -34,4 +34,11 @@ public class Album extends Item {
         this.artist = params.getArtist() == null ? artist : params.getArtist();
         this.etc = params.getEtc() == null ? etc : params.getEtc();
     }
+
+    //수정 v2
+    public void updateAlbum(Album album) {
+        this.updateItem(album);
+        this.artist = album.getArtist();
+        this.etc = album.getEtc();
+    }
 }

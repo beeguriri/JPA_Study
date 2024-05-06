@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import wendy.study.jpashop.dto.AlbumFormDto;
-import wendy.study.jpashop.dto.BookFormDto;
-import wendy.study.jpashop.dto.ItemDto;
-import wendy.study.jpashop.dto.MovieFormDto;
+import wendy.study.jpashop.dto.*;
 import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.model.item.Album;
 import wendy.study.jpashop.model.item.Book;
@@ -108,6 +105,54 @@ public class ItemController {
             return "items/movieForm";
         }
         itemService.insertItem(form.toEntity());
+        return "redirect:/";
+    }
+
+    @GetMapping("/update/{itemId}")
+    public String updateItem(@PathVariable Long itemId, Model model) {
+        Item item = itemService.findItem(itemId);
+        if (item instanceof Album) {
+            model.addAttribute("album", new AlbumFormDto((Album) item));
+            return "items/albumForm";
+        }
+        if (item instanceof Book) {
+            model.addAttribute("book", new BookFormDto((Book) item));
+            return "items/bookForm";
+        }
+        if (item instanceof Movie) {
+            model.addAttribute("album", new MovieFormDto((Movie) item));
+            return "items/movieForm";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/update/album/{itemId}")
+    public String updateAlbum(@PathVariable Long itemId, @Valid @ModelAttribute("album") AlbumFormDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            log.error("error:::{}", result);
+            return "items/albumForm";
+        }
+        itemService.updateItem(itemId, form.toEntity());
+        return "redirect:/";
+    }
+
+    @PostMapping("/update/book/{itemId}")
+    public String updateBook(@PathVariable Long itemId, @Valid @ModelAttribute("book") BookFormDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            log.error("error:::{}", result);
+            return "items/bookForm";
+        }
+        itemService.updateItem(itemId, form.toEntity());
+        return "redirect:/";
+    }
+
+    @PostMapping("/update/movie/{itemId}")
+    public String updateMovie(@PathVariable Long itemId, @Valid @ModelAttribute("movie") MovieFormDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            log.error("error:::{}", result);
+            return "items/movieForm";
+        }
+        itemService.updateItem(itemId, form.toEntity());
         return "redirect:/";
     }
 }

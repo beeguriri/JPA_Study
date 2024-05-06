@@ -36,4 +36,11 @@ public class Book extends Item {
         this.author = params.getAuthor() == null ? author : params.getAuthor();
         this.isbn = params.getIsbn() == null ? isbn : params.getIsbn();
     }
+
+    //수정 v2
+    public void updateBook(Book book) {
+        this.updateItem(book);
+        this.author = book.getAuthor();
+        this.isbn = book.getIsbn();
+    }
 }

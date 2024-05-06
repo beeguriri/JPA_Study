@@ -2,6 +2,7 @@ package wendy.study.jpashop.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
@@ -31,6 +32,7 @@ public class AlbumFormDto {
     private LocalDateTime modifiedAt;
 
     //엔티티를 dto로 변환
+    @Builder
     public AlbumFormDto (Album album) {
         this.id = album.getId();
         this.name = album.getName();

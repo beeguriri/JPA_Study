@@ -15,43 +15,38 @@
       <div class="alert alert-danger" role="alert" th:each="err : ${#fields.globalErrors()}" th:text="${err}" />
     </div>
     <div class="form-group">
-      <label th:for="name"> 상품명
-        <input type="text" th:field="*{name}" class="form-control"
-               placeholder="상품명을 입력하세요"
-               th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'">
-      </label>
+      <label th:for="name">상품명</label>
+      <input type="text" th:field="*{name}" class="form-control"
+             placeholder="상품명을 입력하세요"
+             th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'">
       <p class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     </div>
     <div class="form-group">
-      <label th:for="director"> 감독
-        <input type="text" th:field="*{director}" class="form-control"
-               placeholder="감독명을 입력하세요"
-               th:class="${#fields.hasErrors('director')} ? 'form-control is-invalid' : 'form-control'">
-      </label>
+      <label th:for="director">감독</label>
+      <input type="text" th:field="*{director}" class="form-control"
+             placeholder="감독명을 입력하세요"
+             th:class="${#fields.hasErrors('director')} ? 'form-control is-invalid' : 'form-control'">
       <p class="invalid-feedback" th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></p>
     </div>
     <div class="form-group">
-      <label th:for="actor"> 배우
-        <input type="text" th:field="*{actor}" class="form-control"
-               placeholder="배우명을 입력하세요"
-               th:class="${#fields.hasErrors('actor')} ? 'form-control is-invalid' : 'form-control'">
-      </label>
+      <label th:for="actor">배우</label>
+      <input type="text" th:field="*{actor}" class="form-control"
+             placeholder="배우명을 입력하세요"
+             th:class="${#fields.hasErrors('actor')} ? 'form-control is-invalid' : 'form-control'">
       <p class="invalid-feedback" th:if="${#fields.hasErrors('actor')}" th:errors="*{actor}"></p>
     </div>
     <div class="form-group">
-      <label th:for="price"> 가격
-        <input type="text" th:field="*{price}" class="form-control"
-               placeholder="상품 가격을 입력하세요"
-               th:class="${#fields.hasErrors('price')} ? 'form-control is-invalid' : 'form-control'">
-      </label>
+      <label th:for="price">가격</label>
+      <input type="text" th:field="*{price}" class="form-control"
+             placeholder="상품 가격을 입력하세요"
+             th:class="${#fields.hasErrors('price')} ? 'form-control is-invalid' : 'form-control'">
       <p class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
     </div>
     <div class="form-group">
-      <label th:for="stockQuantity"> 재고수량
-        <input type="text" th:field="*{stockQuantity}" class="form-control"
-               placeholder="재고수량을 입력하세요"
-               th:class="${#fields.hasErrors('stockQuantity')} ? 'form-control is-invalid' : 'form-control'">
-      </label>
+      <label th:for="stockQuantity"> 재고수량</label>
+      <input type="text" th:field="*{stockQuantity}" class="form-control"
+             placeholder="재고수량을 입력하세요"
+             th:class="${#fields.hasErrors('stockQuantity')} ? 'form-control is-invalid' : 'form-control'">
       <p class="invalid-feedback" th:if="${#fields.hasErrors('stockQuantity')}" th:errors="*{stockQuantity}"></p>
     </div>
 
@@ -63,7 +58,7 @@
     </div>
 
     <div th:unless="${#strings.isEmpty(movie.id)}" style="text-align: center">
-      <button th:formaction="@{'/v2/items/update/'+${movie.id}}" type="submit"
+      <button th:formaction="@{'/v2/items/update/movie/'+${movie.id}}" type="submit"
               class="btn btn-primary">수정</button>
       <button type="button" class="btn btn-light"
               th:onclick="|location.href='@{/v2/items}'|">취소</button>

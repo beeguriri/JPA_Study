@@ -57,6 +57,13 @@ public abstract class Item extends BaseEntity{
         this.stockQuantity = params.getStockQuantity() == null ? this.getStockQuantity() : params.getStockQuantity();
     }
 
+    //수정 v2
+    public void updateItem(Item item) {
+        this.name = item.getName() == null || item.getName().isEmpty() || item.getName().isBlank() ? name : item.getName();
+        this.price = item.getPrice();
+        this.stockQuantity = item.getStockQuantity();
+    }
+
     /**
      * 다대다 매핑
      */
