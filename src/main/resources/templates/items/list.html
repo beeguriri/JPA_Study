@@ -73,15 +73,15 @@
     </tr>
     </thead>
     <tbody class="table-group-divider">
-    <tr th:each="item : ${items}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|">
-      <td th:text="${item.id}"></td>
-      <td th:text="${item.name}"></td>
-      <td th:text="${item.dType}"></td>
-      <td th:text="${item.price}"></td>
-      <td th:text="${item.stockQuantity}"></td>
-      <td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
-      <td th:text="${#dates.format(item?.modifiedAt, 'yyyy-MM-dd HH:mm')}"></td>
-      <td>
+    <tr th:each="item : ${items}">
+      <td th:text="${item.id}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>
+      <td th:text="${item.name}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>
+      <td th:text="${item.dType}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>
+      <td th:text="${item.price}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>
+      <td th:text="${item.stockQuantity}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>
+      <td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>
+      <td th:text="${#dates.format(item?.modifiedAt, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>
+      <td th:onclick="event.cancelBubble=true;">
         <button type="button" class="btn btn-sm btn-light"
                 th:onclick="|location.href='@{'/v2/items/update/'+${item.id}}'|">수정</button>
         <button type="button" class="btn btn-sm btn-warning"

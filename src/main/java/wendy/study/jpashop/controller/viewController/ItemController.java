@@ -3,6 +3,8 @@ package wendy.study.jpashop.controller.viewController;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -154,5 +156,18 @@ public class ItemController {
         }
         itemService.updateItem(itemId, form.toEntity());
         return "redirect:/";
+    }
+
+    //js 알람창 처리를 위하여 responseEntity로 return
+    @GetMapping("/delete/{itemId}")
+    public @ResponseBody ResponseEntity<String> deleteItem(@PathVariable Long itemId) {
+        try {
+            itemService.deleteItem(itemId);
+        } catch (Exception e) {
+            log.error("error:::{}", e.getMessage());
+            //ajax로 error 처리
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

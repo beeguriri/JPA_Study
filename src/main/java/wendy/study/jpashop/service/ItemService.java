@@ -46,7 +46,7 @@ public class ItemService {
     //상품삭제
     @Transactional
     public void deleteItem(Long id) {
-        itemRepository.delete(findItem(id));
+        itemRepository.deleteById(id);
     }
 
     //상품수정
