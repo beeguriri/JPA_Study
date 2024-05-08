@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}"
+>
+<!--<th:block layout:fragment="script">-->
+<!--  <script th:inline="javascript">-->
+<!--      &lt;!&ndash; 토스트 관련 설정 &ndash;&gt;-->
+<!--      const Toast = Swal.mixin({-->
+<!--          toast: true,-->
+<!--          position: "top-center",-->
+<!--          showConfirmButton: false,-->
+<!--          timer: 1000,-->
+<!--          timerProgressBar: true,-->
+<!--          didOpen: (toast) => {-->
+<!--              toast.onmouseenter = Swal.stopTimer;-->
+<!--              toast.onmouseleave = Swal.resumeTimer;-->
+<!--          }-->
+<!--      });-->
+<!--      const deleteItem = (itemId) => {-->
+<!--          Swal.fire({-->
+<!--              title: '삭제하시겠습니까?',-->
+<!--              icon: 'warning',-->
+<!--              showCancelButton: true,-->
+<!--              confirmButtonColor: '#3085d6',-->
+<!--              cancelButtonColor: '#d33',-->
+<!--              confirmButtonText: '삭제',-->
+<!--              cancelButtonText: '취소'-->
+<!--          }).then((result) => {-->
+<!--              if (result.isConfirmed) {-->
+<!--                  const url = "/v2/items/delete/"+itemId;-->
+<!--                  $.ajax({-->
+<!--                      url: url,-->
+<!--                      type: "GET",-->
+<!--                      success: (result, status) => {-->
+<!--                          console.log('result', result)-->
+<!--                          console.log('status', status)-->
+<!--                          if(status === 'success') {-->
+<!--                              Toast.fire({-->
+<!--                                  icon: 'success',-->
+<!--                                  title: '성공!',-->
+<!--                              })-->
+<!--                              setTimeout(() => location.href='/v2/items', 2000);-->
+<!--                          }-->
+<!--                      },-->
+<!--                      error: (jqXHR) => {-->
+<!--                          if (jqXHR.status === 406) {-->
+<!--                              Toast.fire({-->
+<!--                                  icon: 'error',-->
+<!--                                  title: '삭제할 수 없습니다.',-->
+<!--                              })-->
+<!--                          }-->
+<!--                      }-->
+<!--                  });-->
+<!--              }-->
+<!--          })-->
+<!--      }-->
+<!--  </script>-->
+<!--</th:block>-->
+<div layout:fragment="content" class="mainWrapper">
+  <h1>주문 목록</h1>
+  <div>
+    <form th:object="${param}" class="search">
+      <div class="form-group" style="width: 300px">
+        <label th:for="userName">회원명</label>
+        <input type="text" th:field="*{userName}" class="form-control" placeholder="회원명"/>
+      </div>
+      <div class="form-group" style="width: 300px">
+        <label th:for="orderStatus">주문상태</label>
+        <select th:field="*{orderStatus}"  class="form-control">
+          <option value="">주문상태</option>
+          <option th:each="status : ${T(wendy.study.jpashop.model.type.OrderStatus).values()}"
+                  th:value="${status}"
+                  th:text="${status}">option
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" style="width: 100px">검색</button>
+      </div>
+    </form>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th style="width:10%">#</th>
+      <th style="width: 15%">회원명</th>
+      <th style="width: 15%">대표상품<br/>이름</th>
+      <th style="width: 15%">대표상품<br/>주문가격</th>
+      <th style="width: 10%">대표상품<br/>주문수량</th>
+      <th style="width: 10%">상태</th>
+      <th style="width: 15%">주문일시</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.member.name}"></td>
+        <td th:text="${order.orderItems[0].item.name}"></td>
+        <td th:text="${order.orderItems[0].orderPrice}"></td>
+        <td th:text="${order.orderItems[0].count}"></td>
+        <td th:text="${order.orderStatus}"></td>
+        <td th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
+        <td>
+          <button type="button" class="btn btn-sm btn-light" th:if="${order.orderStatus.name() == 'ORDER'}"
+                  th:onclick="|location.href='@{'/v2/orders/cancel/'+${order.id}}'|">주문취소</button>
+<!--          <a th:if="${order.orderStatus.name() == 'ORDER'}" href="#"-->
+<!--             th:href="'javascript:cancel('+${order.id}+')'"-->
+<!--             class="btn btn-danger">CANCEL</a>-->
+        </td>
+      </tr>
+<!--    <tr th:each="order : ${orders}">-->
+<!--      <td th:text="${order.id}" th:onclick="|location.href='@{'/v2/orders/'+${order.id}}'|"></td>-->
+<!--      <td th:text="${order.member.name}" th:onclick="|location.href='@{'/v2/orders/'+${item.id}}'|"></td>-->
+<!--      <td th:text="${order.price}" th:onclick="|location.href='@{'/v2/orders/'+${item.id}}'|"></td>-->
+<!--      <td th:text="${order.stockQuantity}" th:onclick="|location.href='@{'/v2/orders/'+${item.id}}'|"></td>-->
+<!--      <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>-->
+<!--      <td th:text="${#dates.format(order?.createdDate, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>-->
+<!--      <td th:text="${#dates.format(order?.modifiedDate, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>-->
+<!--      <td th:onclick="event.cancelBubble=true;">-->
+<!--        <button type="button" class="btn btn-sm btn-light"-->
+<!--                th:onclick="|location.href='@{'/v2/items/update/'+${item.id}}'|">수정</button>-->
+<!--        <button type="button" class="btn btn-sm btn-warning"-->
+<!--                th:item="${item.id}" onclick="deleteItem(this.getAttribute('item'))">삭제</button>-->
+<!--      </td>-->
+<!--    </tr>-->
+    </tbody>
+  </table>
+</div>
+</html>

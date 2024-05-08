@@ -21,3 +21,12 @@
     font-size: 1.25rem;
     font-weight: 300;
 }
+
+.search {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 2%;
+    border : 1px solid grey;
+    padding : 5px;
+}
