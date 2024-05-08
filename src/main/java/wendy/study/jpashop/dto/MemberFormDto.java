@@ -31,6 +31,14 @@ public class MemberFormDto {
         this.zipcode = zipcode;
     }
 
+    public MemberFormDto(Member member) {
+        this.memberId = member.getId();
+        this.name = member.getName();
+        this.city = member.getAddress().getCity();
+        this.street = member.getAddress().getStreet();
+        this.zipcode = member.getAddress().getZipcode();
+    }
+
     //dto 객체를 member 객체로 변환해주는 메서드
     public Member toEntity() {
         return Member.builder()

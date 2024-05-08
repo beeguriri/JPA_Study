@@ -14,6 +14,7 @@ import wendy.study.jpashop.model.Member;
 import wendy.study.jpashop.service.MemberService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("v2/members")
@@ -25,7 +26,8 @@ public class MemberController {
 
     @GetMapping("")
     public String memberList(Model model) {
-        List<Member> members = memberService.findMembers();
+//        List<Member> members = memberService.findMembers();
+        List<MemberFormDto> members = memberService.findMembers().stream().map(MemberFormDto::new).collect(Collectors.toList());
         model.addAttribute("members", members);
         return "members/list";
     }

@@ -72,16 +72,16 @@
     </thead>
     <tbody class="table-group-divider">
     <tr th:each="member : ${members}">
-      <td th:text="${member.id}"></td>
+      <td th:text="${member.memberId}"></td>
       <td th:text="${member.name}"></td>
-      <td th:text="${member.address?.city}"></td>
-      <td th:text="${member.address?.street}"></td>
-      <td th:text="${member.address?.zipcode}"></td>
+      <td th:text="${member.city}"></td>
+      <td th:text="${member.street}"></td>
+      <td th:text="${member.zipcode}"></td>
       <td>
         <button type="button" class="btn btn-sm btn-light"
-                th:onclick="|location.href='@{'/v2/members/update/'+${member.id}}'|">수정</button>
+                th:onclick="|location.href='@{'/v2/members/update/'+${member.memberId}}'|">수정</button>
         <button type="button" class="btn btn-sm btn-warning"
-                th:member="${member.id}" onclick="deleteMember(this.getAttribute('member'))">삭제</button>
+                th:member="${member.memberId}" onclick="deleteMember(this.getAttribute('member'))">삭제</button>
       </td>
     </tr>
     </tbody>
