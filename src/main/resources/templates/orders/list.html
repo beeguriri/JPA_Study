@@ -96,7 +96,7 @@
     <tbody class="table-group-divider">
       <tr th:each="order : ${orders}">
         <td th:text="${order.id}"></td>
-        <td th:text="${order.member.name}"></td>
+        <td th:text="${order.userName}"></td>
         <td th:text="${order.orderItems[0].item.name}"></td>
         <td th:text="${order.orderItems[0].orderPrice}"></td>
         <td th:text="${order.orderItems[0].count}"></td>
@@ -105,26 +105,8 @@
         <td>
           <button type="button" class="btn btn-sm btn-light" th:if="${order.orderStatus.name() == 'ORDER'}"
                   th:onclick="|location.href='@{'/v2/orders/cancel/'+${order.id}}'|">주문취소</button>
-<!--          <a th:if="${order.orderStatus.name() == 'ORDER'}" href="#"-->
-<!--             th:href="'javascript:cancel('+${order.id}+')'"-->
-<!--             class="btn btn-danger">CANCEL</a>-->
         </td>
       </tr>
-<!--    <tr th:each="order : ${orders}">-->
-<!--      <td th:text="${order.id}" th:onclick="|location.href='@{'/v2/orders/'+${order.id}}'|"></td>-->
-<!--      <td th:text="${order.member.name}" th:onclick="|location.href='@{'/v2/orders/'+${item.id}}'|"></td>-->
-<!--      <td th:text="${order.price}" th:onclick="|location.href='@{'/v2/orders/'+${item.id}}'|"></td>-->
-<!--      <td th:text="${order.stockQuantity}" th:onclick="|location.href='@{'/v2/orders/'+${item.id}}'|"></td>-->
-<!--      <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>-->
-<!--      <td th:text="${#dates.format(order?.createdDate, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>-->
-<!--      <td th:text="${#dates.format(order?.modifiedDate, 'yyyy-MM-dd HH:mm')}" th:onclick="|location.href='@{'/v2/items/'+${item.id}}'|"></td>-->
-<!--      <td th:onclick="event.cancelBubble=true;">-->
-<!--        <button type="button" class="btn btn-sm btn-light"-->
-<!--                th:onclick="|location.href='@{'/v2/items/update/'+${item.id}}'|">수정</button>-->
-<!--        <button type="button" class="btn btn-sm btn-warning"-->
-<!--                th:item="${item.id}" onclick="deleteItem(this.getAttribute('item'))">삭제</button>-->
-<!--      </td>-->
-<!--    </tr>-->
     </tbody>
   </table>
 </div>

@@ -7,11 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import wendy.study.jpashop.model.Order;
+import wendy.study.jpashop.dto.OrderDto;
 import wendy.study.jpashop.params.OrderSearchParam;
 import wendy.study.jpashop.service.OrderService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("v2/orders")
@@ -23,7 +24,7 @@ public class OrderController {
 
     @GetMapping("")
     public String orderList(@ModelAttribute("param") OrderSearchParam param, Model model) {
-        List<Order> orders = orderService.findOrderBySearchParam(param);
+        List<OrderDto> orders = orderService.findOrderBySearchParam(param).stream().map(OrderDto::new).collect(Collectors.toList());
         model.addAttribute("orders", orders);
         return "orders/list";
     }
