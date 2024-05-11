@@ -14,6 +14,7 @@ import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.model.item.Album;
 import wendy.study.jpashop.model.item.Book;
 import wendy.study.jpashop.model.item.Movie;
+import wendy.study.jpashop.params.ItemSearchParam;
 import wendy.study.jpashop.service.ItemService;
 
 import java.util.List;
@@ -27,8 +28,8 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("")
-    public String itemList(Model model) {
-        List<ItemDto> items = itemService.searchAllItems();
+    public String itemList(@ModelAttribute("param") ItemSearchParam param, Model model) {
+        List<ItemDto> items = itemService.searchAllItems(param);
         model.addAttribute("items", items);
         return "items/list";
     }

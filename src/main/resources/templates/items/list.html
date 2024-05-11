@@ -59,6 +59,27 @@
 </th:block>
 <div layout:fragment="content" class="mainWrapper">
   <h1>상품 목록</h1>
+  <div>
+    <form th:object="${param}" class="search">
+      <div class="form-group" style="width: 300px">
+        <label th:for="name">상품명</label>
+        <input type="text" th:field="*{name}" class="form-control" placeholder="상품명"/>
+      </div>
+      <div class="form-group" style="width: 300px">
+        <label th:for="dType">상품분류</label>
+        <select th:field="*{dType}"  class="form-control">
+          <option value="">상품분류</option>
+          <option th:each="dType : ${T(wendy.study.jpashop.model.type.DType).values()}"
+                  th:value="${dType}"
+                  th:text="${dType}">option
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" style="width: 100px">검색</button>
+      </div>
+    </form>
+  </div>
   <table class="table table-striped table-hover">
     <thead>
     <tr>

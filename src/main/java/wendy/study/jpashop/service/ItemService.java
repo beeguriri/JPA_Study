@@ -9,6 +9,7 @@ import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.model.item.Album;
 import wendy.study.jpashop.model.item.Book;
 import wendy.study.jpashop.model.item.Movie;
+import wendy.study.jpashop.params.ItemSearchParam;
 import wendy.study.jpashop.params.UpdateItemParam;
 import wendy.study.jpashop.repository.ItemRepository;
 
@@ -39,8 +40,8 @@ public class ItemService {
     }
 
     //native query 사용한 itemDto
-    public List<ItemDto> searchAllItems() {
-        return itemRepository.searchAllItems();
+    public List<ItemDto> searchAllItems(ItemSearchParam param) {
+        return itemRepository.searchAllItems(param);
     }
 
     //상품삭제
