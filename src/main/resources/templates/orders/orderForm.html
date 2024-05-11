@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}"
+>
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+      const checkAll = () => {
+          if ($("#checkAll").prop("checked")) {
+              $("input[name=itemChkBox]").prop("checked", true);
+              console.log('checkAll')
+          } else {
+              $("input[name=itemChkBox]").prop("checked", false);
+              console.log('checkOne')
+          }
+      }
+      const createOrder = () => {
+
+          const memberId = $('#memberId').val();
+
+          if(memberId === undefined || memberId === null) {
+              alert("주문 회원을 선택해 주세요!")
+              return;
+          }
+
+          const orderList = [];
+
+          $('input[name="itemChkBox"]:checked').each(function() {
+              const orderItem = {
+                  itemId: $(this).val(),
+                  count: $(this).closest('tr').find('input[name="count"]').val(),
+              };
+              orderList.push(orderItem);
+          });
+
+          $.ajax({
+              url: "/v2/orders/new",
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify({
+                  memberId: memberId,
+                  items: orderList,
+              }),
+              success: (result, status) => {
+                  alert("주문이 완료 되었습니다.");
+                  $("input[name=itemChkBox]").prop("checked", false);
+                  $("input[name=count]").val('');
+              },
+              error: (jqXHR, status, error) => {
+                  console.log(jqXHR)
+                  alert(jqXHR.responseText);
+              }
+          })
+      }
+  </script>
+</th:block>
+<body>
+<div layout:fragment="content" class="mainWrapper">
+  <div style="display: flex; flex-direction: row; align-items: center;">
+    <div>
+      <!-- 멤버 선택창 -->
+      <div class="search">
+        <div class="form-group" style="width: 700px">
+          <label th:for="name">회원명</label>
+          <select class="form-control" id="memberId">
+            <option value="">주문회원</option>
+            <option th:each="member : ${members}"
+                    th:value="${member.memberId}"
+                    th:text="${member.name}">option
+            </option>
+          </select>
+        </div>
+      </div>
+      <!-- item 선택 리스트 with check box -->
+      <div>
+        <form th:object="${param}" class="search">
+          <div class="form-group" style="width: 300px">
+            <label th:for="name">상품명</label>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="상품명"/>
+          </div>
+          <div class="form-group" style="width: 300px">
+            <label th:for="dType">상품분류</label>
+            <select th:field="*{dType}"  class="form-control">
+              <option value="">전체</option>
+              <option th:each="dType : ${T(wendy.study.jpashop.model.type.DType).values()}"
+                      th:value="${dType}"
+                      th:text="${dType}">option
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" style="width: 100px">검색</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div style="width: 120px; height: 80px; align-items: center; margin-left: 30px;">
+      <button class="btn btn-warning" style="width: 100%; height: 100%;" onclick="createOrder()">주문하기</button>
+    </div>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th style="width: 10%" class="text-center align-middle"><input type="checkbox" id="checkAll" onclick="checkAll()"></th>
+      <th style="width: 15%">상품명</th>
+      <th style="width: 10%">ITEM TYPE</th>
+      <th style="width: 10%">가격</th>
+      <th style="width: 10%">재고수량</th>
+      <th style="width: 10%">주문수량</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <tr th:each="item : ${items}">
+      <td class="text-center align-middle">
+        <input type="checkbox" name="itemChkBox" th:value="${item.id}">
+      </td>
+      <td th:text="${item.name}"></td>
+      <td th:text="${item.dType}"></td>
+      <td th:text="${item.price}"></td>
+      <td th:text="${item.stockQuantity}"></td>
+      <td><input type="text" name="count"/></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
