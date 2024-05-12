@@ -1,20 +1,37 @@
 package wendy.study.jpashop.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
 import wendy.study.jpashop.dto.ItemDto;
+import wendy.study.jpashop.model.Item;
 import wendy.study.jpashop.params.ItemSearchParam;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static wendy.study.jpashop.model.QItem.item;
+
 @RequiredArgsConstructor
 public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
     private final EntityManager entityManager;
+    private final JPAQueryFactory queryFactory;
+
+    @Autowired
+    public ItemRepositoryCustomImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+        this.queryFactory = new JPAQueryFactory(entityManager);
+    }
 
     @Override
     public List<ItemDto> searchAllItems(ItemSearchParam param) {
@@ -65,5 +82,27 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
             items.add(item);
         }
         return items;
+    }
+
+    @Override
+    public Page<Item> searchItemsWithPage(ItemSearchParam param, Pageable pageable) {
+
+        List<Item> items = queryFactory.selectFrom(item)
+                .where(searchByItemName(param.getName()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(item.count())
+                .from(item)
+                .where(searchByItemName(param.getName()));
+
+        return PageableExecutionUtils.getPage(items, pageable, countQuery::fetchOne);
+    }
+
+    private BooleanExpression searchByItemName(String param) {
+        return StringUtils.hasText(param) ? item.name.containsIgnoreCase(param) : null;
     }
 }

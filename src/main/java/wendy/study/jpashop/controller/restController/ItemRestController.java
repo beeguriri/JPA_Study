@@ -2,15 +2,16 @@ package wendy.study.jpashop.controller.restController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import wendy.study.jpashop.model.Item;
-import wendy.study.jpashop.params.AlbumParam;
-import wendy.study.jpashop.params.BookParam;
-import wendy.study.jpashop.params.MovieParam;
-import wendy.study.jpashop.params.UpdateItemParam;
+import wendy.study.jpashop.params.*;
 import wendy.study.jpashop.service.ItemService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -27,7 +28,16 @@ public class ItemRestController {
 
     @GetMapping("/all")
     public List<Item> findItems() {
+        log.info("findItems");
         return itemService.findItems();
+    }
+
+    @GetMapping("/all/{page}")
+    public Page<Item> findItems(@PathVariable("page") Optional<Integer> page,
+                                   @RequestBody ItemSearchParam param) {
+        log.info("findItemsWithPages");
+        Pageable pageable = PageRequest.of(page.orElse(0),3);
+        return itemService.findItemsWithPage(param, pageable);
     }
 
     @PostMapping("/insert/album")

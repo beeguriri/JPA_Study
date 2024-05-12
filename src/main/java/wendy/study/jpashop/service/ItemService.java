@@ -2,6 +2,8 @@ package wendy.study.jpashop.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wendy.study.jpashop.dto.ItemDto;
@@ -42,6 +44,10 @@ public class ItemService {
     //native query 사용한 itemDto
     public List<ItemDto> searchAllItems(ItemSearchParam param) {
         return itemRepository.searchAllItems(param);
+    }
+
+    public Page<Item> findItemsWithPage(ItemSearchParam param, Pageable pageable) {
+        return itemRepository.searchItemsWithPage(param, pageable);
     }
 
     //상품삭제
