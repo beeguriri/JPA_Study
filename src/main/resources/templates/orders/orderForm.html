@@ -81,7 +81,8 @@
                   alert("주문이 완료 되었습니다.");
                   $("input[name=itemChkBox]").prop("checked", false);
                   $("input[name=count]").val('');
-                  console.log("result:::", result);
+                  // 페이지 새로고침
+                  location.reload();
               },
               error: (jqXHR, status, error) => {
                   console.log("error:::", jqXHR)
