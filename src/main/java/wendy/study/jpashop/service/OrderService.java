@@ -2,6 +2,7 @@ package wendy.study.jpashop.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wendy.study.jpashop.model.*;
 import wendy.study.jpashop.model.type.DeliveryStatus;
 import wendy.study.jpashop.params.OrderItemParam;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class OrderService {
 
     private final MemberRepository memberRepository;
@@ -22,6 +24,7 @@ public class OrderService {
     private final ItemRepository itemRepository;
 
     // 주문생성
+    @Transactional
     public Long createOrder(Long memberId, List<OrderItemParam> params) {
 
         //엔티티 조회
@@ -49,6 +52,7 @@ public class OrderService {
     }
 
     // 주문취소
+    @Transactional
     public void cancelOrder(Long orderId) {
         //주문 엔티티 조회
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalStateException("존재하지 않는 주문입니다."));

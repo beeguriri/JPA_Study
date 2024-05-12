@@ -55,4 +55,11 @@ public class OrderController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    @GetMapping("/cancel/{orderId}")
+    public String cancelOrder(@PathVariable Long orderId) {
+        log.info("order ID [{}] ::: 여기 들어오는지 확인", orderId);
+        orderService.cancelOrder(orderId);
+        return "redirect:/v2/orders";
+    }
 }
