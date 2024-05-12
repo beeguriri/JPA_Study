@@ -39,7 +39,7 @@ public class OrderController {
     @GetMapping("/new")
     public String createOrder(@ModelAttribute("param") ItemSearchParam param, Model model) {
         List<MemberFormDto> members = memberService.findMembers().stream().map(MemberFormDto::new).toList();
-        List<ItemDto> items = itemService.searchAllItems(param);
+        List<ItemDto> items = itemService.searchAllItems(param).stream().filter((item) -> item.getStockQuantity() > 0).toList();
         model.addAttribute("members", members);
         model.addAttribute("items", items);
         return "orders/orderForm";
